@@ -74,14 +74,14 @@ runs:
           echo "Adding inotify_mark_user_mask function definition"
           python3 -c 'import re;c=open("fs/notify/fdinfo.c").read();c=re.sub(r"^static void inotify_fdinfo\(struct seq_file \*m, struct fsnotify_mark \*mark\)$",lambda m:"static inline u32 inotify_mark_user_mask(struct fsnotify_mark *mark)\n{\n\treturn mark->mask & IN_ALL_EVENTS;\n}\n\n"+m.group(0),c,count=1,flags=re.MULTILINE);open("fs/notify/fdinfo.c","w").write(c)'
         fi
-        if [ "${{ inputs.sublevel }}" -ge "197" ]; then
-          echo "Applying namespace.c Android 13 5.15 Fake Patch"
-          sed -i '/^#include <trace\/hooks\/blk.h>$/d' fs/namespace.c
-        fi
-        if [ "${{ inputs.sublevel }}" -ge "197" ]; then
-          echo "Applying task_mmu.c Android 13 5.15 Fake Patch"
-          sed -i '/^#include <trace\/hooks\/mm.h>$/d' fs/proc/task_mmu.c
-        fi
+#        if [ "${{ inputs.sublevel }}" -ge "197" ]; then
+#         echo "Applying namespace.c Android 13 5.15 Fake Patch"
+#          sed -i '/^#include <trace\/hooks\/blk.h>$/d' fs/namespace.c
+#        fi
+#        if [ "${{ inputs.sublevel }}" -ge "197" ]; then
+#          echo "Applying task_mmu.c Android 13 5.15 Fake Patch"
+#          sed -i '/^#include <trace\/hooks\/mm.h>$/d' fs/proc/task_mmu.c
+#        fi
 
     - name: Apply Android 14 6.1 Fake Patches
       shell: bash
