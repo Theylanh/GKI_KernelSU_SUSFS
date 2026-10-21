@@ -68,7 +68,7 @@ on:
         type: boolean
         default: false
       allow_version_mismatch:
-        required: false
+        required: true
         type: boolean
         default: false
       use_cache:
